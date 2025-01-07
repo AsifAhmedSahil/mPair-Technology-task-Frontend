@@ -60,13 +60,21 @@ export const Navbar = () => {
           {/* ****************************** For mobile menu *********************************** */}
           {mobileDrawerOpen && (
             <div className="fixed right-0 z-20 top-20 bg-black text-white w-full p-12 flex flex-col justify-center items-center lg:hidden">
-              <div className="flex space-x-6 mt-4">
+              <div className="flex sm:flex-col space-x-6 mt-4">
                 <Link
                   to="/dashboard/addItems"
                   className="py-2 px-3 rounded-md bg-gradient-to-r from-green-500 to-green-800 text-white"
                 >
                   Dashboard
                 </Link>
+                <Link to={"/login"}>
+              <button
+                type="button"
+                className="text-black bg-white  font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              >
+                Login
+              </button>
+            </Link>
               </div>
             </div>
           )}

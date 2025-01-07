@@ -1,11 +1,12 @@
-import Dahsboard from "./pages/Dashboard/Dahsboard"
+
 import './index.css'
+import DahsboardLayout from './pages/DahsboardLayout/DahsboardLayout'
 
 
 const App = () => {
   return (
     <div>
-      <Dahsboard/>
+      <DahsboardLayout/>
     </div>
   )
 }
