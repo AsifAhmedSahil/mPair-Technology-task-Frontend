@@ -1,10 +1,11 @@
-import { Button } from "./components/ui/button"
+import Dahsboard from "./pages/Dashboard/Dahsboard"
+import './index.css'
 
 
 const App = () => {
   return (
     <div>
-      <Button>Click</Button>
+      <Dahsboard/>
     </div>
   )
 }
