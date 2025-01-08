@@ -121,6 +121,7 @@ const Accounting = () => {
         employeeId: user?.employeeId,
       };
 
+      console.log(accountInfo)
       const res = await addAccount(accountInfo);
       console.log(res);
 
