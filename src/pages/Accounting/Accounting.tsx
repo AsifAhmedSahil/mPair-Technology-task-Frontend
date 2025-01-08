@@ -25,6 +25,7 @@ import {
   useAddHeadMutation,
   useGetAccountHeadQuery,
 } from "@/redux/api/auth/userData";
+import { toast } from "sonner";
 
 interface AccountHead {
   id: string;
@@ -123,7 +124,13 @@ const Accounting = () => {
 
       console.log(accountInfo)
       const res = await addAccount(accountInfo);
-      console.log(res);
+      console.log(res.data.success);
+      if(res.data.success){
+        toast.success("Successfully added.",{ duration: 2000})
+      }
+
+
+      
 
       // Reset the form if submission is successful
       setFormData({
@@ -152,7 +159,10 @@ const Accounting = () => {
 
     // Make the API call to add the account head
     const res = await addHead(headInfo);
-    console.log(res);
+    
+    if(res.data.success){
+      toast.success("Account Head added successfully.",{ duration: 2000})
+    }
 
     // Close the modal and reset modal form
     setIsModalOpen(false);
