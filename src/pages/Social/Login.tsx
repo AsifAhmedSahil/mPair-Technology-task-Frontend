@@ -1,4 +1,6 @@
 import { useLoginMutation } from '@/redux/api/auth/authApi';
+import { setToken, setUser } from '@/redux/features/userSlice';
+import { useAppDispatch } from '@/redux/hooks';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -9,9 +11,10 @@ type FormData = {
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [login,{data,error}] = useLoginMutation()
+  const [login,{error}] = useLoginMutation()
+  const dispatch = useAppDispatch()
 
-  console.log("data",data)
+  // console.log("data",data)
   console.log("error",error)
 
   
@@ -27,13 +30,17 @@ const LoginForm = () => {
     mode: 'onBlur', // or 'onChange'
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     console.log(data);
     const userInfo = {
       employeeId : data.employeeId,
       password: data.password
     }
-    login(userInfo)
+    const res = await login(userInfo).unwrap()
+    const {token,data:user} = res
+
+    dispatch(setToken(token))
+    dispatch(setUser(user))
   };
 
   return (
