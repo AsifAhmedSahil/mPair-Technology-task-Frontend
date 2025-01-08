@@ -40,7 +40,7 @@ export const Navbar = () => {
         <div className="py-4 flex items-center justify-between">
           {/* Logo + name */}
           <div className="flex items-center justify-center gap-4 ml-5">
-            <Link to={"/"}>
+            <Link to={"/dashboard"}>
               <img
                 src={logo}
                 alt="Logo"
@@ -78,7 +78,7 @@ export const Navbar = () => {
                  
                 
          
-          <div className="flex gap-3  w-full">
+          <div className="flex gap-3  w-full ">
           <div className="mt-4">
             <Link to="/dashboard/profile">
               <button
@@ -106,7 +106,7 @@ export const Navbar = () => {
         <Link to={"/login"}>
           <button
             type="button"
-            className="text-black bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            className="bg-[#2397C8] text-white border-2 border-white px-4 py-2"
           >
             Login
           </button>
@@ -123,7 +123,7 @@ export const Navbar = () => {
               <Link to={"/login"}>
                 <button
                   type="button"
-                  className="text-black bg-white font-medium rounded-lg text-sm px-6 py-3 text-center"
+                  className="bg-[#2397C8] text-white border-2 border-white px-4 py-1 rounded-md"
                 >
                   Login
                 </button>
@@ -146,7 +146,7 @@ export const Navbar = () => {
 
                 {/* Dropdown menu */}
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg">
+                  <div className="absolute right-0 mt-2 w-40 z-99 bg-white text-black rounded-md shadow-lg">
                     <Link
                       to="/dashboard/profile"
                       className="block px-4 py-2 hover:bg-gray-200"

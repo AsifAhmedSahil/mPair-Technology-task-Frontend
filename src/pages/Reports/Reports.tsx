@@ -35,7 +35,7 @@ const AllAccounts = () => {
   const todayDate = selectedDate ? format(selectedDate, 'dd MMM yyyy') : format(new Date(), 'dd MMM yyyy');
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto max-w-7xl mx-auto">
       {/* Container for Daily Report and Today's Date */}
       <div className="flex justify-between items-center px-4 py-2 mb-10">
         {/* Daily Report Title */}

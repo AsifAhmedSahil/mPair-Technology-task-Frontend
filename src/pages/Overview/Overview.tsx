@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import {
   ChartContainer,
   ChartTooltip,
@@ -11,36 +13,55 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useGetUserDataQuery } from "@/redux/api/auth/userData";
+import { useGetAccountUserYearleDataQuery, useGetUserDataQuery } from "@/redux/api/auth/userData";
+
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { useState } from "react";
+
 import { Bar, BarChart, CartesianGrid, Legend, XAxis, YAxis } from "recharts";
-
-const monthlyData = [
-  { month: "January", debit: 220, credit: 180 },
-  { month: "February", debit: 180, credit: 200 },
-  { month: "March", debit: 170, credit: 160 },
-  { month: "April", debit: 190, credit: 180 },
-  { month: "May", debit: 160, credit: 210 },
-  { month: "June", debit: 150, credit: 190 },
-  { month: "July", debit: 170, credit: 200 },
-  { month: "August", debit: 210, credit: 180 },
-  { month: "September", debit: 200, credit: 160 },
-  { month: "October", debit: 170, credit: 150 },
-  { month: "November", debit: 180, credit: 170 },
-  { month: "December", debit: 190, credit: 200 },
-];
-
 
 const Overview = () => {
   const [selectedYear, setSelectedYear] = useState("2025");
-
   const { user } = useAppSelector((state: RootState) => state.user);
 
-const {data: userData} = useGetUserDataQuery(user?.employeeId)
+  // Fetch user data (e.g., total amounts)
+  const { data: userData,error, isLoading } = useGetUserDataQuery(user?.employeeId);
 
-console.log(userData?.data.totalAmount,user?.employeeId);
+  // Call mutation to fetch yearly data for the selected year
+  // const [getYearlyData, { data: yearlyData, isLoading, error }] = useGetAccountYearlyDataMutation();
+  const {data:yearlyData } = useGetAccountUserYearleDataQuery({
+    employeeId: user?.employeeId,
+    year: selectedYear,
+  })
+
+  console.log(yearlyData)
+  console.log(selectedYear,"***************")
+
+  // Fetch yearly data whenever the selected year changes
+  if (yearlyData?.success === false || yearlyData?.data.length === 0) {
+    return (
+      <div className="container mx-auto p-4 space-y-6">
+        <div className="alert alert-warning">
+          <strong>No data found for this year.</strong>
+        </div>
+      </div>
+    );
+  }
+
+  // Transform the API data to match the format needed for BarChart
+  const chartData =yearlyData?.data.map((item: any) => {
+    const [year, month] = item.monthYear.split('-');
+    return {
+      month: new Date(`${year}-${month}-01`).toLocaleString('default', { month: 'long' }), // Format month name
+      debit: item.debitTotal,
+      credit: item.creditTotal,
+    };
+  }) || [];
+
+  // Loading and Error Handling
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
 
   return (
     <div className="container mx-auto p-4 space-y-6">
@@ -107,7 +128,7 @@ console.log(userData?.data.totalAmount,user?.employeeId);
             }}
             className="h-[400px] flex justify-center w-full mt-12"
           >
-            <BarChart data={monthlyData} width={800} height={400}>
+            <BarChart data={chartData} width={800} height={400}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis
                 dataKey="month"

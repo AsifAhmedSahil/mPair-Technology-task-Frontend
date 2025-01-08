@@ -23,14 +23,23 @@ const userDataApi = baseApi.injectEndpoints({
           }),
     //   providesTags:["account"]
     }),
+    getAccountUserYearleData: builder.query({
+        query: ({ employeeId, year }) => ({
+            url: `/accountRouter/yearly-data/${employeeId}`,
+            params: { year }, 
+          }),
+      providesTags:["account"]
+    }),
+   
     addAccount: builder.mutation({
       query: (accountInfo) => ({
         url: "/accountRouter/add-account",
         method: "POST",
         body: accountInfo,
       }),
-      invalidatesTags:['dashboard']
+      invalidatesTags:['dashboard',"account"]
     }),
+    
     addHead: builder.mutation({
       query: (headInfo) => ({
         url: "/accountHead/add-accountHead",
@@ -44,8 +53,10 @@ const userDataApi = baseApi.injectEndpoints({
 
 export const {
   useGetUserDataQuery,
+ useGetAccountUserYearleDataQuery,
   useAddAccountMutation,
   useGetAccountHeadQuery,
   useAddHeadMutation,
   useGetAccountUserDataQuery
+  
 } = userDataApi;
