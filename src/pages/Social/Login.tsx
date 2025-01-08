@@ -1,3 +1,4 @@
+import { useLoginMutation } from '@/redux/api/auth/authApi';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -8,15 +9,31 @@ type FormData = {
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [login,{data,error}] = useLoginMutation()
+
+  console.log("data",data)
+  console.log("error",error)
+
   
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    defaultValues: {
+      employeeId: '123456',
+      password: 'securepassword123',
+    },
+    mode: 'onBlur', // or 'onChange'
+  });
 
   const onSubmit = (data: FormData) => {
     console.log(data);
+    const userInfo = {
+      employeeId : data.employeeId,
+      password: data.password
+    }
+    login(userInfo)
   };
 
   return (
