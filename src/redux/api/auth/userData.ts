@@ -14,7 +14,7 @@ const userDataApi = baseApi.injectEndpoints({
         url: "/accountHead/get-account-heads",
         method: "GET",
       }),
-      providesTags:['dashboard',"account"]
+      providesTags:["account"]
     }),
     addAccount: builder.mutation({
       query: (accountInfo) => ({
@@ -24,6 +24,14 @@ const userDataApi = baseApi.injectEndpoints({
       }),
       invalidatesTags:['dashboard']
     }),
+    addHead: builder.mutation({
+      query: (headInfo) => ({
+        url: "/accountHead/add-accountHead",
+        method: "POST",
+        body: headInfo,
+      }),
+      invalidatesTags:['account']
+    }),
   }),
 });
 
@@ -31,4 +39,5 @@ export const {
   useGetUserDataQuery,
   useAddAccountMutation,
   useGetAccountHeadQuery,
+  useAddHeadMutation
 } = userDataApi;

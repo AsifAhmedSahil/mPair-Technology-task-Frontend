@@ -16,33 +16,38 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
-import { useAddAccountMutation, useGetAccountHeadQuery } from "@/redux/api/auth/userData";
+import {
+  useAddAccountMutation,
+  useAddHeadMutation,
+  useGetAccountHeadQuery,
+} from "@/redux/api/auth/userData";
 
 interface AccountHead {
   id: string;
   name: string;
 }
 
-
 // Accounting Component
 const Accounting = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const [addAccount] = useAddAccountMutation();
-  
+  const [addHead] = useAddHeadMutation();
+
   // Fetch account head data
   const { data: headData } = useGetAccountHeadQuery(undefined);
+  console.log(headData?.data);
 
   // Map the fetched data to an array of objects with name and _id
-  const accountHeads = headData?.data?.map((head:any) => ({
-    id: head._id,
-    name: head.name.charAt(0).toUpperCase() + head.name.slice(1), // Capitalize the first letter of each head
-  })) || [];
-
-  console.log(accountHeads); // Logs the account heads with id and name
+  // Mapping the fetched data to ensure 'name' exists before processing it
+  const accountHeads =
+    headData?.data?.map((head: any) => ({
+      id: head._id,
+      name: head.headName, // Fallback to 'Unnamed Head'
+    })) || [];
 
   const [formData, setFormData] = useState({
     date: "",
@@ -59,7 +64,12 @@ const Accounting = () => {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalFormData, setModalFormData] = useState({
+    accountType: "debit", // Default is debit
+    headName: "",
+  });
 
+  // Handle change for accounting form inputs
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -67,8 +77,18 @@ const Accounting = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Handle change for modal form inputs (account head)
+  const handleModalInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setModalFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   const handleSelectChange = (name: string, value: string) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleModalSelectChange = (value: string) => {
+    setModalFormData((prevData) => ({ ...prevData, accountType: value }));
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -112,6 +132,30 @@ const Accounting = () => {
         amount: "",
       });
     }
+  };
+
+  const handleModalFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Basic validation for modal
+    if (!modalFormData.headName) {
+      alert("Account head name is required");
+      return;
+    }
+
+    // Add account head via API (or just log for now)
+    console.log("New Account Head:", modalFormData);
+    const headInfo = {
+      ...modalFormData,
+    };
+
+    // Make the API call to add the account head
+    const res = await addHead(headInfo);
+    console.log(res);
+
+    // Close the modal and reset modal form
+    setIsModalOpen(false);
+    setModalFormData({ accountType: "debit", headName: "" });
   };
 
   return (
@@ -170,13 +214,15 @@ const Accounting = () => {
                 <Label htmlFor="accountHead">Choose Head</Label>
                 <Select
                   value={formData.accountHead}
-                  onValueChange={(value) => handleSelectChange("accountHead", value)}
+                  onValueChange={(value) =>
+                    handleSelectChange("accountHead", value)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select head" />
                   </SelectTrigger>
                   <SelectContent className="bg-white text-black rounded-md shadow-lg">
-                    {accountHeads.map((accountHead:AccountHead) => (
+                    {accountHeads.map((accountHead: AccountHead) => (
                       <SelectItem
                         key={accountHead.id}
                         value={accountHead.id}
@@ -224,7 +270,7 @@ const Accounting = () => {
             <CardTitle>Account Heads</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {accountHeads.map((head:any) => (
+            {accountHeads.map((head: any) => (
               <div
                 key={head.id}
                 className="rounded-lg bg-slate-100 px-4 py-2 text-sm"
@@ -252,10 +298,11 @@ const Accounting = () => {
             </DialogTitle>
           </DialogHeader>
           <hr className="my-2 border-t border-gray-300" />
-          <form className="space-y-4">
+          <form onSubmit={handleModalFormSubmit} className="space-y-4">
             {/* Account Head Type Radio Buttons */}
             <RadioGroup
-              defaultValue="debit"
+              value={modalFormData.accountType}
+              onValueChange={handleModalSelectChange}
               className="flex gap-8 w-full items-center justify-center"
             >
               <div className="flex items-center space-x-2">
@@ -275,10 +322,19 @@ const Accounting = () => {
             {/* Account Head Name Input */}
             <div className="space-y-2">
               <Label htmlFor="headName">Type name here</Label>
-              <Input id="headName" placeholder="Enter head name" />
+              <Input
+                id="headName"
+                name="headName"
+                placeholder="Enter head name"
+                value={modalFormData.headName}
+                onChange={handleModalInputChange}
+              />
             </div>
 
-            <Button className="w-full bg-[#2397C8] text-white hover:bg-sky-600">
+            <Button
+              type="submit"
+              className="w-full bg-[#2397C8] text-white hover:bg-sky-600"
+            >
               Add Head
             </Button>
           </form>
