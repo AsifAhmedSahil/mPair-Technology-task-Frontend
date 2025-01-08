@@ -3,6 +3,7 @@ import { setToken, setUser } from '@/redux/features/userSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
   employeeId: string;
@@ -13,6 +14,7 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [login,{error}] = useLoginMutation()
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   // console.log("data",data)
   console.log("error",error)
@@ -41,6 +43,7 @@ const LoginForm = () => {
 
     dispatch(setToken(token))
     dispatch(setUser(user))
+    navigate("/dashboard")
   };
 
   return (
