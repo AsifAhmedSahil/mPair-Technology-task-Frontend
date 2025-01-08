@@ -225,8 +225,8 @@ const Accounting = () => {
                   <SelectContent className="bg-white text-black rounded-md shadow-lg">
                     {accountHeads.map((accountHead: AccountHead) => (
                       <SelectItem
-                        key={accountHead.id}
-                        value={accountHead.id}
+                        key={accountHead.name}
+                        value={accountHead.name}
                         className="hover:bg-gray-200"
                       >
                         {accountHead.name}
