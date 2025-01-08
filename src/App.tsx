@@ -1,14 +1,15 @@
-
-import './index.css'
-import DahsboardLayout from './pages/DahsboardLayout/DahsboardLayout'
-
+import ProtectedRoute from "./components/Layout/ProtectedRoute";
+import "./index.css";
+import DahsboardLayout from "./pages/DahsboardLayout/DahsboardLayout";
 
 const App = () => {
   return (
     <div>
-      <DahsboardLayout/>
+      <ProtectedRoute>
+        <DahsboardLayout />
+      </ProtectedRoute>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

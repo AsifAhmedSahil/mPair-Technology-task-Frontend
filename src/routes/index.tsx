@@ -1,4 +1,5 @@
 import MainLayout from "@/components/Layout/MainLayout";
+import ProtectedRoute from "@/components/Layout/ProtectedRoute";
 import Accounting from "@/pages/Accounting/Accounting";
 import DashboardLayout from "@/pages/DahsboardLayout/DahsboardLayout"; 
 import Overview from "@/pages/Overview/Overview";
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashboardLayout />,
+        element:<ProtectedRoute><DashboardLayout /></ProtectedRoute> ,
       },
       {
         path: "login", 
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard", 
-        element: <DashboardLayout />, 
+        element:<ProtectedRoute> <DashboardLayout /></ProtectedRoute>, 
         children: [
           {
             index: true, 
