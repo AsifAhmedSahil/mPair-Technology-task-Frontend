@@ -28,8 +28,8 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="bg-[#2397C8]">
-      <div className="px-4 ">
+    <div className="bg-[#2397C8] h-[70px] w-full">
+      <div className="px-4  ">
         <div className="py-4  flex items-center justify-between">
           {/* logo + name */}
           <div className="flex items-center justify-center gap-4 ">
