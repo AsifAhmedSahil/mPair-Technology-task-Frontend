@@ -29,13 +29,14 @@ const DahsboardLayout = () => {
 
   return (
     <div className="flex min-h-screen overflow-hidden">
+      {/* Left Sidebar */}
       <div
         className={`flex flex-col bg-[#E4F2F8] text-[#373232] ${
           isSidebarOpen ? "w-[275px]" : "w-16"
-        } h-[859px] transition-all duration-300`}
+        } min-h-screen transition-all duration-300`} // Sidebar is fixed to screen height
       >
         <button
-          className="lg:hidden absolute bottom-10 left-4 text-green-500"
+          className="lg:hidden absolute top-24 left-4 text-green-500"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? (
@@ -45,18 +46,17 @@ const DahsboardLayout = () => {
           )}
         </button>
 
-        <div className="mt-8 ">
+        <div className="mt-16 lg:mt-8">
           <h2 className="text-[#2397C8] hidden lg:block font-semibold text-[26px] leading-4 ml-6 mt-4 mb-4">
             Accounting
           </h2>
           <Link
             to="/dashboard"
-            className={`block py-3 px-6 flex items-center justify-between space-x-2 
-        ${
-          location.pathname === "/dashboard"
-            ? "bg-[#D1E9F3] text-[#2397C8]"
-            : "text-[#373232] hover:bg-[#D1E9F3] hover:text-[#2397C8]"
-        }`}
+            className={`block py-3 px-6 flex items-center justify-between space-x-2 ${
+              location.pathname === "/dashboard"
+                ? "bg-[#D1E9F3] text-[#2397C8]"
+                : "text-[#373232] hover:bg-[#D1E9F3] hover:text-[#2397C8]"
+            }`}
           >
             <div className="flex items-center space-x-2">
               <FaHome className="text-xl sm:size-8" />
@@ -69,12 +69,11 @@ const DahsboardLayout = () => {
 
           <Link
             to="/dashboard/accounting"
-            className={`block py-3 px-6 flex items-center justify-between space-x-2 
-              ${
-                location.pathname === "/dashboard/accounting"
-                  ? "bg-[#D1E9F3] text-[#2397C8]"
-                  : "text-[#373232] hover:bg-[#D1E9F3] hover:text-[#2397C8]"
-              }`}
+            className={`block py-3 px-6 flex items-center justify-between space-x-2 ${
+              location.pathname === "/dashboard/accounting"
+                ? "bg-[#D1E9F3] text-[#2397C8]"
+                : "text-[#373232] hover:bg-[#D1E9F3] hover:text-[#2397C8]"
+            }`}
           >
             <div className="flex items-center space-x-2">
               <FaWallet className="text-xl sm:size-8" />
@@ -87,12 +86,11 @@ const DahsboardLayout = () => {
 
           <Link
             to="/dashboard/reports"
-            className={`block py-3 px-6 flex items-center justify-between space-x-2 
-              ${
-                location.pathname === "/dashboard/reports"
-                  ? "bg-[#D1E9F3] text-[#2397C8]"
-                  : "text-[#373232] hover:bg-[#D1E9F3] hover:text-[#2397C8]"
-              }`}
+            className={`block py-3 px-6 flex items-center justify-between space-x-2 ${
+              location.pathname === "/dashboard/reports"
+                ? "bg-[#D1E9F3] text-[#2397C8]"
+                : "text-[#373232] hover:bg-[#D1E9F3] hover:text-[#2397C8]"
+            }`}
           >
             <div className="flex items-center space-x-2">
               <FaChartBar className="text-xl sm:size-8" />
@@ -105,7 +103,8 @@ const DahsboardLayout = () => {
         </div>
       </div>
 
-      <div className="flex-1 p-6">
+      {/* Right Content Area */}
+      <div className="flex-1 p-6 overflow-auto min-h-screen">
         <Outlet />
       </div>
     </div>
