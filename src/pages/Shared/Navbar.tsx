@@ -14,11 +14,7 @@ export const Navbar = () => {
 
   const { user } = useAppSelector((state: RootState) => state.user);
   console.log(user);
-  // Simulating a logged-in user (replace with actual user data)
-  // const user = {
-  //   name: "John Doe", // Example user name
-  //   imageUrl: "https://via.placeholder.com/40", // Example user image URL
-  // };
+  
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
