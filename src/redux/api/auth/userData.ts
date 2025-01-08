@@ -17,10 +17,10 @@ const userDataApi = baseApi.injectEndpoints({
       providesTags:["account"]
     }),
     getAccountUserData: builder.query({
-      query: (employeeId) => ({
-        url: `/accountRouter/get-account/${employeeId}`,
-        method: "GET",
-      }),
+        query: ({ employeeId, date }) => ({
+            url: `/accountRouter/get-account/${employeeId}`,
+            params: { date }, 
+          }),
     //   providesTags:["account"]
     }),
     addAccount: builder.mutation({
