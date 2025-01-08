@@ -84,10 +84,11 @@ export const Navbar = () => {
          
           <div className="flex gap-3  w-full">
           <div className="mt-4">
-            <Link to="/profile">
+            <Link to="/dashboard/profile">
               <button
                 type="button"
                 className="w-full text-left px-4 py-2 text-black bg-white rounded-md"
+                onClick={() => setMobileDrawerOpen(false)}
               >
                 Profile
               </button>
@@ -151,8 +152,9 @@ export const Navbar = () => {
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg">
                     <Link
-                      to="/profile"
+                      to="/dashboard/profile"
                       className="block px-4 py-2 hover:bg-gray-200"
+                      onClick={() => setDropdownOpen(false)}
                     >
                       Profile
                     </Link>

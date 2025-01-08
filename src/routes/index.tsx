@@ -3,6 +3,7 @@ import ProtectedRoute from "@/components/Layout/ProtectedRoute";
 import Accounting from "@/pages/Accounting/Accounting";
 import DashboardLayout from "@/pages/DahsboardLayout/DahsboardLayout"; 
 import Overview from "@/pages/Overview/Overview";
+import Profile from "@/pages/Profile/Profile";
 import Reports from "@/pages/Reports/Reports";
 import NotFound from "@/pages/Shared/NotFound";
 import Login from "@/pages/Social/Login";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
           {
             path: "reports", 
             element: <Reports/>, 
+          },
+          {
+            path: "profile", 
+            element: <Profile/>, 
           },
         ],
       },
