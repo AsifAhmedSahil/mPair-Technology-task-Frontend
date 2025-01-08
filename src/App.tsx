@@ -4,7 +4,7 @@ import DahsboardLayout from "./pages/DahsboardLayout/DahsboardLayout";
 
 const App = () => {
   return (
-    <div >
+    <div className="min-h-screen overflow-hidden">
       <ProtectedRoute>
         <DahsboardLayout />
       </ProtectedRoute>

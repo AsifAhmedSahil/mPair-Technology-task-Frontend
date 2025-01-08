@@ -28,7 +28,7 @@ const DahsboardLayout = () => {
   }, [isLargeScreen]);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex min-h-screen overflow-hidden">
       <div
         className={`flex flex-col bg-[#E4F2F8] text-[#373232] ${
           isSidebarOpen ? "w-[275px]" : "w-16"
