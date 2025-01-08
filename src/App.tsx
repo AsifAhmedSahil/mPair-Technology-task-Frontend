@@ -4,7 +4,7 @@ import DahsboardLayout from "./pages/DahsboardLayout/DahsboardLayout";
 
 const App = () => {
   return (
-    <div>
+    <div >
       <ProtectedRoute>
         <DahsboardLayout />
       </ProtectedRoute>
