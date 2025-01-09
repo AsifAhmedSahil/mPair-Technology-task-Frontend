@@ -1,16 +1,13 @@
-
-import {Navbar} from "@/pages/Shared/Navbar"
-import { Outlet } from "react-router-dom"
-
+import { Navbar } from "@/pages/Shared/Navbar";
+import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
     <div className="w-full min-h-screen overflow-hidden ">
-        <Navbar/>
-        <Outlet/>
-        
+      <Navbar />
+      <Outlet />
     </div>
-  )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;

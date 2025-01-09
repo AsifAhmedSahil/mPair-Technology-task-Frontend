@@ -29,11 +29,11 @@ const DahsboardLayout = () => {
 
   return (
     <div className="flex min-h-screen overflow-hidden">
-      {/* Left Sidebar */}
+      
       <div
         className={`flex flex-col bg-[#E4F2F8] text-[#373232] ${
           isSidebarOpen ? "w-[275px]" : "w-16"
-        } min-h-screen transition-all duration-300`} // Sidebar is fixed to screen height
+        } min-h-screen transition-all duration-300`} 
       >
         <button
           className="lg:hidden absolute top-24 left-4 text-green-500"

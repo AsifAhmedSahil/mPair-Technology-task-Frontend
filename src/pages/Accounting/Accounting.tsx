@@ -32,22 +32,21 @@ interface AccountHead {
   name: string;
 }
 
-// Accounting Component
+
 const Accounting = () => {
   const { user } = useAppSelector((state: RootState) => state.user);
   const [addAccount] = useAddAccountMutation();
   const [addHead] = useAddHeadMutation();
 
-  // Fetch account head data
+  
   const { data: headData } = useGetAccountHeadQuery(undefined);
   console.log(headData?.data);
 
-  // Map the fetched data to an array of objects with name and _id
-  // Mapping the fetched data to ensure 'name' exists before processing it
+
   const accountHeads =
     headData?.data?.map((head: any) => ({
       id: head._id,
-      name: head.headName, // Fallback to 'Unnamed Head'
+      name: head.headName, 
     })) || [];
 
   const [formData, setFormData] = useState({
@@ -66,11 +65,11 @@ const Accounting = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalFormData, setModalFormData] = useState({
-    accountType: "debit", // Default is debit
+    accountType: "debit", 
     headName: "",
   });
 
-  // Handle change for accounting form inputs
+ 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -78,7 +77,7 @@ const Accounting = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Handle change for modal form inputs (account head)
+  
   const handleModalInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setModalFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -95,7 +94,7 @@ const Accounting = () => {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
+ 
     const formErrors = { ...errors };
 
     if (!formData.date) formErrors.date = "Date is required";
@@ -113,7 +112,7 @@ const Accounting = () => {
 
     setErrors(formErrors);
 
-    // If no errors, log the form data
+    
     if (!Object.values(formErrors).some((error) => error !== "")) {
       console.log("Form Data Submitted:", formData);
 
@@ -132,7 +131,7 @@ const Accounting = () => {
 
       
 
-      // Reset the form if submission is successful
+   
       setFormData({
         date: "",
         accountType: "",
@@ -145,26 +144,26 @@ const Accounting = () => {
   const handleModalFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation for modal
+  
     if (!modalFormData.headName) {
       alert("Account head name is required");
       return;
     }
 
-    // Add account head via API (or just log for now)
+    
     console.log("New Account Head:", modalFormData);
     const headInfo = {
       ...modalFormData,
     };
 
-    // Make the API call to add the account head
+   
     const res = await addHead(headInfo);
     
     if(res.data.success){
       toast.success("Account Head added successfully.",{ duration: 2000})
     }
 
-    // Close the modal and reset modal form
+    
     setIsModalOpen(false);
     setModalFormData({ accountType: "debit", headName: "" });
   };
@@ -172,7 +171,7 @@ const Accounting = () => {
   return (
     <>
       <div className="grid gap-6 md:grid-cols-2 max-w-7xl mx-auto mt-20">
-        {/* Accounting Form */}
+        
         <Card>
           <CardHeader>
             <CardTitle>Add Accounting</CardTitle>
@@ -194,7 +193,7 @@ const Accounting = () => {
                 )}
               </div>
 
-              {/* Account Type Select */}
+             
               <div className="space-y-2">
                 <Label htmlFor="accountType">Account Type</Label>
                 <Select
@@ -220,7 +219,7 @@ const Accounting = () => {
                 )}
               </div>
 
-              {/* Head Select */}
+              
               <div className="space-y-2">
                 <Label htmlFor="accountHead">Choose Head</Label>
                 <Select
@@ -249,7 +248,7 @@ const Accounting = () => {
                 )}
               </div>
 
-              {/* Amount Input */}
+             
               <div className="space-y-2">
                 <Label htmlFor="amount">Amount</Label>
                 <Input
@@ -275,7 +274,7 @@ const Accounting = () => {
           </CardContent>
         </Card>
 
-        {/* Account Heads */}
+       
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Account Heads</CardTitle>
@@ -300,7 +299,7 @@ const Accounting = () => {
         </Card>
       </div>
 
-      {/* Modal for Adding Account Head */}
+
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent style={{ backgroundColor: "#F4FAFC" }}>
           <DialogHeader>
@@ -310,7 +309,7 @@ const Accounting = () => {
           </DialogHeader>
           <hr className="my-2 border-t border-gray-300" />
           <form onSubmit={handleModalFormSubmit} className="space-y-4">
-            {/* Account Head Type Radio Buttons */}
+            
             <RadioGroup
               value={modalFormData.accountType}
               onValueChange={handleModalSelectChange}
@@ -330,7 +329,7 @@ const Accounting = () => {
               </div>
             </RadioGroup>
 
-            {/* Account Head Name Input */}
+          
             <div className="space-y-2">
               <Label htmlFor="headName">Type name here</Label>
               <Input

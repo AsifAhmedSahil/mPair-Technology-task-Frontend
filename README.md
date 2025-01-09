@@ -1,50 +1,41 @@
-# React + TypeScript + Vite
+# Pure Ledger: Daily Account Transactions Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Pure Ledger is a web application designed to help users track their income and expenses. It provides a user-friendly interface to manage daily transactions, including income, expenses, and accounting records. The app also provides insightful reports in the form of tables and charts.
 
-Currently, two official plugins are available:
+### Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Registration**: Secure sign-up process for new users.
+- **User Login**: Allows registered users to authenticate and access their account.
+- **Dashboard**: Displays income, expenses, and a bar chart for a quick overview.
+- **Accounting Section**: Users can add their daily income, expenses, and account heads.
+- **Reports Section**: Provides detailed records of daily transactions in a table format.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technology Stack
 
-- Configure the top-level `parserOptions` property like this:
+- **Frontend**: 
+  - React.js with TypeScript
+  - Tailwind CSS for styling
+  - Vite for build and development
+  - Recharts for data visualization
+  - React Router for navigation
+  - React Hook Form for form handling
+  - Redux Toolkit for state management
+  - Radix UI components for UI design
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Backend**:
+  - Node.js with Express.js
+  - MySQL or MongoDB (based on the backend implementation)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Installation
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+To run this project locally, follow these steps:
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/pure-ledger.git
+cd pure-ledger

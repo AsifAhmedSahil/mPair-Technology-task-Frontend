@@ -28,15 +28,12 @@ const Overview = () => {
   const [selectedYear, setSelectedYear] = useState("2025");
   const { user } = useAppSelector((state: RootState) => state.user);
 
-  // Fetch user data (e.g., total amounts)
   const {
     data: userData,
     error,
     isLoading,
   } = useGetUserDataQuery(user?.employeeId);
 
-  // Call mutation to fetch yearly data for the selected year
-  // const [getYearlyData, { data: yearlyData, isLoading, error }] = useGetAccountYearlyDataMutation();
   const { data: yearlyData } = useGetAccountUserYearleDataQuery({
     employeeId: user?.employeeId,
     year: selectedYear,
@@ -45,7 +42,6 @@ const Overview = () => {
   console.log(yearlyData);
   console.log(selectedYear, "***************");
 
-  // Fetch yearly data whenever the selected year changes
   if (yearlyData?.success === false || yearlyData?.data.length === 0) {
     return (
       <div className="container mx-auto p-4 space-y-6">
@@ -56,20 +52,18 @@ const Overview = () => {
     );
   }
 
-  // Transform the API data to match the format needed for BarChart
   const chartData =
     yearlyData?.data.map((item: any) => {
       const [year, month] = item.monthYear.split("-");
       return {
         month: new Date(`${year}-${month}-01`).toLocaleString("default", {
           month: "long",
-        }), // Format month name
+        }),
         debit: item.debitTotal,
         credit: item.creditTotal,
       };
     }) || [];
 
-  // Loading and Error Handling
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
 
@@ -121,7 +115,6 @@ const Overview = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="2025">Year 2025</SelectItem>
-                
               </SelectContent>
             </Select>
           </CardHeader>
@@ -143,12 +136,12 @@ const Overview = () => {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis
                   dataKey="month"
-                  tickFormatter={(value) => value.slice(0, 3)} // Display first 3 characters of month
+                  tickFormatter={(value) => value.slice(0, 3)}
                   axisLine={false}
                   tickLine={false}
-                  tickMargin={10} // Adjust margin between ticks and labels
-                  interval={0} // Show every tick (month)
-                  padding={{ left: 20, right: 20 }} // Adjust the padding between labels
+                  tickMargin={10}
+                  interval={0}
+                  padding={{ left: 20, right: 20 }}
                 />
                 <YAxis axisLine={false} tickLine={false} />
                 <ChartTooltip content={<ChartTooltipContent />} />

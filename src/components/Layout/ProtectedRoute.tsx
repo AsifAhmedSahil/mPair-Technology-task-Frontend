@@ -1,23 +1,18 @@
-import { ReactNode } from "react"
-import { useAppSelector } from "../../redux/hooks"
+import { ReactNode } from "react";
+import { useAppSelector } from "../../redux/hooks";
 
-import { Navigate } from "react-router-dom"
-import { RootState } from "@/redux/store"
+import { Navigate } from "react-router-dom";
+import { RootState } from "@/redux/store";
 
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const token = useAppSelector((state: RootState) => state.user.token);
+  console.log(token);
 
+  if (!token) {
+    return <Navigate to="/login" replace={true} />;
+  }
 
-const ProtectedRoute = ({children}:{children:ReactNode}) => {
+  return children;
+};
 
-    const token = useAppSelector((state:RootState)=> state.user.token)
-    console.log(
-    token 
-    )
-
-    if(!token){
-        return <Navigate to="/login" replace={true}/>
-    }
-
-  return children
-}
-
-export default ProtectedRoute
+export default ProtectedRoute;
