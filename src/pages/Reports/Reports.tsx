@@ -49,7 +49,7 @@ const AllAccounts = () => {
           </div>
 
           {/* Date Picker Icon */}
-          <div className="relative flex items-center">
+          <div className="relative flex items-center ">
             <DatePicker
               selected={selectedDate}
               onChange={(date: Date | null) => setSelectedDate(date)} // Handle both Date and null
@@ -60,7 +60,7 @@ const AllAccounts = () => {
             />
             {/* Calendar Icon */}
             <div
-              className="cursor-pointer text-gray-600 bg-gray-200 rounded-lg p-2"
+              className="cursor-pointer text-gray-600 bg-gray-200 rounded-lg p-2 lg:mr-16"
               onClick={() => setIsDatePickerOpen(!isDatePickerOpen)} // Toggle the date picker visibility on icon click
             >
               <FiCalendar size={24} />

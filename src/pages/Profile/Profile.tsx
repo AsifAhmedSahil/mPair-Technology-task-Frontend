@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
-import React from "react";
+
 
 const Profile = () => {
   // Sample profile data

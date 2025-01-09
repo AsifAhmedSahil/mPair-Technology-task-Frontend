@@ -275,7 +275,17 @@ const RegistrationForm = () => {
       >
         Register
       </button>
+      
     </form>
+    <div className="text-center text-sm text-[#9E9E9E]">
+        {"Already have an account? "}
+        <a
+          href="/login"
+          className="font-semibold text-sky-500 hover:text-sky-600"
+        >
+         Login Now
+        </a>
+      </div>
   </div>
 
   

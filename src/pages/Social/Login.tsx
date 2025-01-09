@@ -1,7 +1,7 @@
 import { useLoginMutation } from '@/redux/api/auth/authApi';
 import { setToken, setUser } from '@/redux/features/userSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
@@ -29,8 +29,8 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      employeeId: '123456',
-      password: 'securepassword123',
+      employeeId: 'asif123',
+      password: '111111',
     },
     mode: 'onBlur', // or 'onChange'
   });
